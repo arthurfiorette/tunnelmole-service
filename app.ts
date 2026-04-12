@@ -6,12 +6,14 @@ import logTelemetry from './src/handlers/log-telemetry';
 import express from 'express';
 import bodyParser from 'body-parser';
 import unreserveSubdomain from './src/handlers/unreserve-subdomain';
+import config from './config';
 const app = express();
 
 // Body will be a Buffer, easy to transfer to the client untouched
 const options = {
   inflate: false,
-  type: '*/*'
+  type: '*/*',
+  limit: config.server.maxRequestSize ?? '5mb'
 };
 
 app.use(bodyParser.raw(options));
