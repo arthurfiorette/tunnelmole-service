@@ -45,6 +45,9 @@ cd docker
 Then edit `config.toml` (symlinked to `../config-instance.toml`) and run:
 
 ```bash
+# Create ../config-instance.toml first if it does not exist yet
+cp config-instance.example.toml ../config-instance.toml
+# Edit config.toml with your settings
 bash docker-run.sh
 ```
 
@@ -55,6 +58,8 @@ For Docker Compose deployment, from inside the same `docker/` directory:
 ```bash
 cp .env.example .env
 # Edit .env if needed
+# Create ../config-instance.toml first if it does not exist yet
+cp config-instance.example.toml ../config-instance.toml
 # Edit config.toml with your settings
 docker compose up -d
 ```
