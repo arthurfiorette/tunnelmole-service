@@ -1,17 +1,7 @@
+### docker-compose.yml for external services. Run Tunnelmole itself outside of Docker with node.
 version: '3.8'
 
 services:
-  tunnelmole:
-    build: .
-    image: ghcr.io/arthurfiorette/tunnelmole-service:latest
-    env_file: .env
-    ports:
-      - "8000:8000"
-      - "8080:8080"
-    depends_on:
-      - mysql
-    restart: unless-stopped
-
   mysql:
     image: mysql:8.0.32
     container_name: mysql-8.0.32

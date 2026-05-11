@@ -44,17 +44,19 @@ cp config-instance.example.toml config-instance.toml
 Then run the service (the config file is mounted into the container):
 
 ```bash
-bash scripts/docker-run.sh
+bash examples/docker-run.sh
 ```
 
 #### Docker Compose
 
-A `docker-compose.yml` is provided that runs both the tunnelmole service and a MySQL database.
+Example files for hosting with Docker Compose are in the `examples/` folder:
 
 ```bash
-cp .env.example .env
-# Edit .env if needed, then:
-docker compose up
+cp config-instance.example.toml config-instance.toml
+# Edit config-instance.toml with your settings
+cp examples/.env.example examples/.env
+# Edit examples/.env if needed, then:
+docker compose -f examples/docker-compose.yml up
 ```
 
 ### Getting started
