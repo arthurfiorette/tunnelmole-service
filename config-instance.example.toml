@@ -20,13 +20,15 @@ websocketPort = 8080
 domain = "localhost"
 
 # Require API keys for every new connection, including random hostnames.
-# When false, only explicitly requested subdomains/domains require an API key.
+# Defaults to true when omitted. When false, only explicitly requested
+# subdomains/domains require an API key.
 # server.requireApiKeyForAllConnections = true
 requireApiKeyForAllConnections = true
 
 # Allow clients to request arbitrary domains through the initialise domain field.
-# When false, only hostnames under server.domain are accepted from domain and all
-# other custom domain requests fall back to a random generated hostname.
+# Defaults to true when omitted. When false, only hostnames under server.domain
+# are accepted from domain and all other custom domain requests fall back to a
+# random generated hostname.
 # server.allowCustomDomains = true
 allowCustomDomains = true
 
