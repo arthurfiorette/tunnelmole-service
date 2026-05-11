@@ -17,8 +17,8 @@ bannedHostnames = []
 requireApiKey = false
 
 [mysql]
-host = 'localhost'
-user = 'root'
+host = 'mysql'
+user = 'tunnelmole'
 password = 'changeme'
 database = 'tunnelmole'
 
