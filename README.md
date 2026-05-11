@@ -18,6 +18,8 @@ For the coding style, we mostly follow [Functional Programming](https://en.wikip
 ### Docker
 
 Pre-built images are published to the GitHub Container Registry on every commit to `main` and on every git tag.
+Use the Docker deployment files in the `docker/` directory when deploying with Docker.
+The root `docker-compose.yml` is for development-only external services.
 
 | Tag | Description |
 |-----|-------------|
@@ -34,29 +36,27 @@ docker pull ghcr.io/robbie-cahill/tunnelmole-service:sha-<short-sha>
 docker pull ghcr.io/robbie-cahill/tunnelmole-service:v1.0.0
 ```
 
-Copy the example config and edit it as needed:
+Change into the Docker deployment directory:
 
 ```bash
-cp config-instance.example.toml config-instance.toml
-# Edit config-instance.toml with your settings
+cd docker
 ```
 
-Then run the service (the config file is mounted into the container):
+Then edit `config.toml` (symlinked to `../config-instance.toml`) and run:
 
 ```bash
-bash examples/docker-run.sh
+bash docker-run.sh
 ```
 
 #### Docker Compose
 
-Example files for hosting with Docker Compose are in the `examples/` folder:
+For Docker Compose deployment, from inside the same `docker/` directory:
 
 ```bash
-cp config-instance.example.toml config-instance.toml
-# Edit config-instance.toml with your settings
-cp examples/.env.example examples/.env
-# Edit examples/.env if needed, then:
-docker compose -f examples/docker-compose.yml up
+cp .env.example .env
+# Edit .env if needed
+# Edit config.toml with your settings
+docker compose up -d
 ```
 
 ### Getting started

@@ -1,5 +1,4 @@
 # Application environment label used by the service at runtime.
-# environment = "local"
 environment = "local"
 
 ###
@@ -11,7 +10,7 @@ environment = "local"
 httpPort = 8000
 
 # WebSocket port used by Tunnelmole clients to connect to the service.
-# IMPORTANT: for Docker/container builds this must remain 8080 inside the container.
+# IMPORTANT: when running in Docker/containers this must remain 8080 inside the container.
 # To use a different external port, keep this at 8080 and change Docker port mapping (for example -p 9000:8080).
 # server.websocketPort = 8080
 websocketPort = 8080
