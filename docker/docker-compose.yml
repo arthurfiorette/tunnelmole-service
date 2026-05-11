@@ -41,8 +41,6 @@ services:
       MYSQL_DATABASE: tunnelmole
       MYSQL_USER: tunnelmole
       MYSQL_PASSWORD: changeme
-    ports:
-      - '3306:3306'
     volumes:
       # Persist DB state across container replacement and image upgrades.
       - mysql-data:/var/lib/mysql
