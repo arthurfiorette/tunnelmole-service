@@ -1,3 +1,6 @@
+# Please read ../config-instance.example.toml for configuration options and documentation.
+# This file is mounted into the Docker container as a read-only volume, so changes here will be reflected in the container without needing to rebuild the image.
+
 environment = "production"
 
 [server]
