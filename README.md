@@ -28,10 +28,10 @@ Pre-built images are published to the GitHub Container Registry on every commit 
 
 ```bash
 # Pull the latest commit image
-docker pull ghcr.io/arthurfiorette/tunnelmole-service:sha-<short-sha>
+docker pull ghcr.io/robbie-cahill/tunnelmole-service:sha-<short-sha>
 
 # Or pull a stable release
-docker pull ghcr.io/arthurfiorette/tunnelmole-service:v1.0.0
+docker pull ghcr.io/robbie-cahill/tunnelmole-service:v1.0.0
 ```
 
 Copy the example config and edit it as needed:

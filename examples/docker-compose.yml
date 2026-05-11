@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   tunnelmole:
-    image: ghcr.io/arthurfiorette/tunnelmole-service:latest
+    image: ghcr.io/robbie-cahill/tunnelmole-service:latest
     env_file: .env
     ports:
       - "8000:8000"

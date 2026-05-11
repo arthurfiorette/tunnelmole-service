@@ -14,4 +14,4 @@ docker run --rm \
   -e TUNNELMOLE_LOG_LEVEL="${TUNNELMOLE_LOG_LEVEL:-}" \
   -e LOG_CONNECTION_INFO="${LOG_CONNECTION_INFO:-}" \
   -v "$(pwd)/config-instance.toml:/app/config-instance.toml:ro" \
-  ghcr.io/arthurfiorette/tunnelmole-service:latest
+  ghcr.io/robbie-cahill/tunnelmole-service:latest
