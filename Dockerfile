@@ -12,6 +12,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --omit=dev
 COPY --from=builder /app/dist ./dist
+# Bake in default API keys file so custom subdomains work out of the box.
+# For production, mount your own apiKeys.json: -v /path/to/apiKeys.json:/app/src/authentication/apiKeys.json:ro
+COPY src/authentication/apiKeys.json ./src/authentication/apiKeys.json
 # Bake in the example config as a default so the container can start without a volume mount.
 # For production, mount your own config-instance.toml: -v ./config-instance.toml:/app/config-instance.toml:ro
 COPY config-instance.example.toml ./config-instance.toml
