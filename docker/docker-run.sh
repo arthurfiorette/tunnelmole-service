@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Simple alternative to Docker Compose: run the service with docker run.
-# Copy config-instance.example.toml to config-instance.toml and edit it first.
+# Copy config-instance.example.toml to config.toml and edit it first.
 set -euo pipefail
 
-if [[ ! -f config-instance.toml ]]; then
-  echo "Error: config-instance.toml not found. Copy config-instance.example.toml and edit it first."
+if [[ ! -f config.toml ]]; then
+  echo "Error: config.toml not found. Copy config-instance.example.toml and edit it first."
   exit 1
 fi
 
@@ -13,5 +13,6 @@ docker run --rm \
   -p 8080:8080 \
   -e TUNNELMOLE_LOG_LEVEL="${TUNNELMOLE_LOG_LEVEL:-}" \
   -e LOG_CONNECTION_INFO="${LOG_CONNECTION_INFO:-}" \
-  -v "$(pwd)/config-instance.toml:/app/config-instance.toml:ro" \
+  # config.toml in docker/ points to ../config-instance.toml via symlink
+  -v "$(pwd)/config.toml:/app/config-instance.toml:ro" \
   ghcr.io/robbie-cahill/tunnelmole-service:latest
