@@ -3,13 +3,24 @@ import { ROOT_DIR } from '../../constants';
 import HostipWebSocket from '../websocket/host-ip-websocket';
 import InitialiseMessage from '../messages/initialise-message';
 import InvalidSubscriptionMessage from '../messages/invalid-subscription-message';
-import initialise from '../message-handlers/initialise';
+import config from '../../config';
+import { shouldRequireApiKey } from './connection-auth-policy';
 
-const authorize = async(message: InitialiseMessage, websocket: HostipWebSocket, randomSubdomain: string) : Promise<boolean> => {
+type ApiKeyRecord = {
+    apiKey: string
+}
+
+const authorize = async(message: InitialiseMessage, websocket: HostipWebSocket) : Promise<boolean> => {
+    const requireApiKeyForAllConnections = config.server.requireApiKeyForAllConnections ?? true;
+
+    if (!shouldRequireApiKey(message, requireApiKeyForAllConnections)) {
+        return true;
+    }
+
     const { apiKey } = message;
-    const apiKeys = JSON.parse(fs.readFileSync(ROOT_DIR + "/src/authentication/apiKeys.json").toString());
+    const apiKeys: ApiKeyRecord[] = JSON.parse(fs.readFileSync(ROOT_DIR + "/src/authentication/apiKeys.json").toString());
 
-    const apiKeyRecord = apiKeys.find((record: any) => {
+    const apiKeyRecord = apiKeys.find((record: ApiKeyRecord) => {
         return record.apiKey == apiKey;
     });
 

@@ -11,12 +11,12 @@ import { INDEX_OF_NOT_FOUND } from '../../constants';
 import { bannedIps } from '../../security/banned-ips';
 import { bannedHostnames } from '../../security/banned-hostnames';
 import ReservedDomain from '../model/reserved-domain';
-import { addReservedDomain } from '../repository/reserved-subdomain-repository';
 import { DOMAIN_ALREADY_RESERVED, ERROR, SUCCESS, TOO_MANY_DOMAINS, reserveDomain } from '../reserved-domain/reserved-domain';
 import DomainAlreadyReserved from '../messages/domain-already-reserved';
 import TooManyDomains from '../messages/domain-reservation-error';
 import DomainReservationError from '../messages/domain-reservation-error';
 import { authorize } from '../authentication/authorize';
+import { resolveRequestedHostname } from './requested-hostname';
 const randomstring = require("randomstring");
 
 const RANDOM_SUBDOMAIN_LENGTH = 6;
@@ -25,18 +25,25 @@ const { verify } = require('reverse-dns-lookup');
 
 export default async function initialise(message: InitialiseMessage, websocket: HostipWebSocket) {
     let subdomain = generateRandomSubdomain(websocket);
-    const authorized = await authorize(message, websocket, subdomain);
+    let hostname = subdomain + '.' + config.server.domain;
+    const authorized = await authorize(message, websocket);
     
     if (authorized === false) {
         // You shall not pass
         return false;
     }
 
-    // By default use a random subdomain unless the subscription is valid and a subdomain is passed
-    if (typeof message.subdomain === 'string') {
+    const requestedHostname = resolveRequestedHostname(
+        message,
+        config.server.domain,
+        config.server.allowCustomDomains ?? true
+    );
+
+    // By default use a random subdomain unless the subscription is valid and a custom hostname is passed
+    if (typeof requestedHostname?.subdomain === 'string') {
         const reservedDomain: ReservedDomain = {
             apiKey: message.apiKey,
-            subdomain: message.subdomain
+            subdomain: requestedHostname.subdomain
         };
 
         // Reserve and set the requested domain, or send back a message in case of failure
@@ -53,13 +60,14 @@ export default async function initialise(message: InitialiseMessage, websocket: 
             case DOMAIN_ALREADY_RESERVED:
                 const domainAlreadyReservedMessage: DomainAlreadyReserved = {
                     type: "domainAlreadyReserved",
-                    subdomain: message.subdomain,
+                    subdomain: requestedHostname.subdomain,
                 }
 
                 websocket.sendMessage(domainAlreadyReservedMessage);
                 break;
             case SUCCESS:
-                subdomain = message.subdomain;
+                subdomain = requestedHostname.subdomain;
+                hostname = requestedHostname.hostname;
                 break;
             case ERROR:
                 const domainReservationError: DomainReservationError = {
@@ -70,10 +78,11 @@ export default async function initialise(message: InitialiseMessage, websocket: 
                 websocket.sendMessage(domainReservationError);
                 break;
         }
+    } else if (requestedHostname) {
+        hostname = requestedHostname.hostname;
     }
 
     const clientId = message.clientId;
-    const hostname = subdomain + '.' + config.server.domain
 
     let isBannedHostname;
     

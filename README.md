@@ -124,10 +124,13 @@ NOTE: The `https` URL won't work without extra setup, see below.
 
 
 #### Security
-The service is wide open for anyone wishing to generate random URLs, so keep this in mind.
+By default the service requires API keys for every connection, including random generated hostnames.
 
-Custom subdomains require adding an API key to `src/authentication/apiKeys.json` in `tunnelmole-service`. You can then run `node dist/src/index.js --set-api-key <your api key>`. 
+Add API keys to `src/authentication/apiKeys.json` in `tunnelmole-service`. You can then run `node dist/src/index.js --set-api-key <your api key>`.
 
+If you want to allow random generated hostnames without API keys, set `server.requireApiKeyForAllConnections = false` in `config-instance.toml`. Explicit subdomain or domain requests will still require an API key.
+
+Set `server.allowCustomDomains = false` to block arbitrary custom domains while still allowing `domain` requests that stay under your configured `server.domain` (for example `docs.tunnelmole.local`).
 
 All custom subdomains need to be added to your hosts file if you are running `tunnelmole-service` locally. 
 ```

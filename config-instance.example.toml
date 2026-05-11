@@ -19,6 +19,17 @@ websocketPort = 8080
 # server.domain = "localhost"
 domain = "localhost"
 
+# Require API keys for every new connection, including random hostnames.
+# When false, only explicitly requested subdomains/domains require an API key.
+# server.requireApiKeyForAllConnections = true
+requireApiKeyForAllConnections = true
+
+# Allow clients to request arbitrary domains through the initialise domain field.
+# When false, only hostnames under server.domain are accepted from domain and all
+# other custom domain requests fall back to a random generated hostname.
+# server.allowCustomDomains = true
+allowCustomDomains = true
+
 # Password for protected admin/debug endpoints (like /tunnelmole-connections).
 # server.password = "changeme"
 password = "changeme"
