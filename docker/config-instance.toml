@@ -4,6 +4,7 @@
 environment = "production"
 
 [server]
+# Don't change ports here, change in Docker port mapping if needed (e.g. -p 9000:8080).
 httpPort = 8000
 websocketPort = 8080
 domain = 'localhost'
