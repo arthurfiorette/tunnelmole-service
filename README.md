@@ -42,12 +42,12 @@ Change into the Docker deployment directory:
 cd docker
 ```
 
-Then edit `config.toml` (symlinked to `../config-instance.toml`) and run:
+Then create and edit `../config-instance.toml` (accessible via the `config.toml` symlink) and run:
 
 ```bash
 # Create ../config-instance.toml first if it does not exist yet
 cp config-instance.example.toml ../config-instance.toml
-# Edit config.toml with your settings
+# Edit ../config-instance.toml (or config.toml symlink) with your settings
 bash docker-run.sh
 ```
 
@@ -60,7 +60,7 @@ cp .env.example .env
 # Edit .env if needed
 # Create ../config-instance.toml first if it does not exist yet
 cp config-instance.example.toml ../config-instance.toml
-# Edit config.toml with your settings
+# Edit ../config-instance.toml (or config.toml symlink) with your settings
 docker compose up -d
 ```
 
