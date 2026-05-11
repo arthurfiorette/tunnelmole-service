@@ -10,6 +10,6 @@ docker run --rm \
   -p 8080:8080 \
   -e TUNNELMOLE_LOG_LEVEL="${TUNNELMOLE_LOG_LEVEL:-}" \
   -e LOG_CONNECTION_INFO="${LOG_CONNECTION_INFO:-}" \
-  # config.toml in docker/ points to ../config-instance.toml via symlink
   -v "$(pwd)/config-instance.toml:/app/config-instance.toml:ro" \
+  -v "$(pwd)/apiKeys.json:/app/src/authentication/apiKeys.json:ro" \
   ghcr.io/robbie-cahill/tunnelmole-service:latest

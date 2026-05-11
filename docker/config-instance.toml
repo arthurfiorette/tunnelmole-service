@@ -1,1 +1,25 @@
-../config-instance.example.toml
+environment = "production"
+
+[server]
+httpPort = 8000
+websocketPort = 8080
+domain = 'localhost'
+password = 'changeme'
+bannedIps = []
+bannedClientIds = []
+bannedHostnames = []
+
+[authentication]
+requireApiKey = false
+
+[mysql]
+host = 'localhost'
+user = 'root'
+password = 'changeme'
+database = 'tunnelmole'
+
+[runtime]
+debug = false
+enableLogging = true
+connectionTimeout = 43200
+timeoutCheckFrequency = 5000
