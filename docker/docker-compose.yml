@@ -14,11 +14,10 @@ services:
       - mysql
     restart: unless-stopped
 
-  # Optional MySQL service for logging/telemetry if enabled in config-instance.toml
   mysql:
     image: mysql:8.0.32
     container_name: mysql-8.0.32
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: changeme
     ports:
       - '3306:3306'
