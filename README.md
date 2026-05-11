@@ -21,10 +21,10 @@ Pre-built images are published to the GitHub Container Registry on every commit 
 Use the Docker deployment files in the `docker/` directory when deploying with Docker.
 The root `docker-compose.yml` is for development-only external services.
 
-| Tag | Description |
-|-----|-------------|
-| `sha-<short-sha>` | Published on every commit to `main` (e.g. `sha-a1b2c3d`) |
-| `v<X.Y.Z>` | Stable release, published when a git tag such as `v1.2.3` is pushed |
+| Tag               | Description                                                         |
+| ----------------- | ------------------------------------------------------------------- |
+| `sha-<short-sha>` | Published on every commit to `main` (e.g. `sha-a1b2c3d`)            |
+| `v<X.Y.Z>`        | Stable release, published when a git tag such as `v1.2.3` is pushed |
 
 #### Quick start with Docker
 

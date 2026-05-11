@@ -30,21 +30,15 @@ maxRequestSize = "5mb"
 
 # Banned source IP addresses. Matching clients are shadow banned.
 # server.bannedIps = ["203.0.113.10"]
-bannedIps = [
-    "999.999.999.999",
-]
+bannedIps = ["999.999.999.999"]
 
 # Banned client IDs. Matching clients are shadow banned.
 # server.bannedClientIds = ["df3453rewr349543utff"]
-bannedClientIds = [
-    "df3453rewr349543utff"
-]
+bannedClientIds = ["df3453rewr349543utff"]
 
 # Banned hostnames for reverse DNS checks. Matching clients are shadow banned.
 # server.bannedHostnames = ["evil.com"]
-bannedHostnames = [
-    "evil.com"
-]
+bannedHostnames = ["evil.com"]
 
 ###
 # MySQL configuration used only when runtime.enableLogging is true.
@@ -74,7 +68,7 @@ database = "tunnelmole"
 # runtime.debug = true
 debug = true
 
-# Enable database-backed logging/telemetry writes.
+# Enable database-backed logging/telemetry writes. You don't need to run mysql if this is false.
 # runtime.enableLogging = false
 enableLogging = false
 
