@@ -1,20 +1,27 @@
-import { findBySubdomain, findSubdomainsNotBelongingToApiKey } from "../repository/reserved-subdomain-repository";
+import {
+    addReservedDomain,
+    countReservedDomainsByApiKey,
+    findSubdomainsNotBelongingToApiKey
+} from "../repository/reserved-subdomain-repository";
 import { DOMAIN_ALREADY_RESERVED, SUCCESS, reserveDomain } from "./reserved-domain";
 
-jest.mock("../repository/reserved-subdomain-repository");
-const mockedFindBySubdomain = findBySubdomain as jest.MockedFunction<typeof findBySubdomain>;
+jest.mock("../repository/reserved-subdomain-repository", () => ({
+    addReservedDomain: jest.fn(),
+    countReservedDomainsByApiKey: jest.fn(),
+    findSubdomainsNotBelongingToApiKey: jest.fn()
+}));
 
-const mockedFindSubdomainsNotBelongingToApiKey = findSubdomainsNotBelongingToApiKey as jest.MockedFunction<typeof findBySubdomain>;
+const mockedAddReservedDomain = addReservedDomain as jest.MockedFunction<typeof addReservedDomain>;
+const mockedCountReservedDomainsByApiKey = countReservedDomainsByApiKey as jest.MockedFunction<typeof countReservedDomainsByApiKey>;
+const mockedFindSubdomainsNotBelongingToApiKey = findSubdomainsNotBelongingToApiKey as jest.MockedFunction<typeof findSubdomainsNotBelongingToApiKey>;
 
 describe("reserveDomain", () => {
     it("should return success if no other users own this subdomain", async () => {
-        mockedFindBySubdomain.mockImplementation(async () => {
-            return Promise.resolve(undefined);
-        });
-
         mockedFindSubdomainsNotBelongingToApiKey.mockImplementation(async() => {
             return Promise.resolve(undefined);
-        })
+        });
+        mockedCountReservedDomainsByApiKey.mockResolvedValue(0);
+        mockedAddReservedDomain.mockResolvedValue(undefined);
 
         const reservedDomain = { apiKey: "test-api-key", subdomain: "example" };
         const result = await reserveDomain(reservedDomain);
