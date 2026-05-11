@@ -49,12 +49,13 @@ export default function websocket(websocket: HostipWebSocket, request: IncomingM
                 return;
             }
 
-            if (typeof messageHandlers[message.type] !== 'function') {
+            const handler = messageHandlers[message.type as keyof typeof messageHandlers];
+
+            if (typeof handler !== 'function') {
                 console.error("Handler not found for message type " + message.type);
                 return;
             }
 
-            const handler = messageHandlers[message.type];
             handler(message, websocket);
         } catch (error) {
             console.error("Caught error when processing websocket message");

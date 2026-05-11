@@ -23,7 +23,7 @@ const handleRequest = async function(request : Request, response : Response) {
         return;
     }
 
-    const headers = {};
+    const headers: { [name: string]: string|string[]|undefined } = {};
     for (const key in request.headers) {
         const name = capitalize.words(key);
         const value = request.headers[key];
