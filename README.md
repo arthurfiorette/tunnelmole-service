@@ -79,6 +79,13 @@ The service is wide open for anyone wishing to generate random URLs, so keep thi
 
 Custom subdomains require adding an API key to `src/authentication/apiKeys.json` in `tunnelmole-service`. You can then run `node dist/src/index.js --set-api-key <your api key>`. 
 
+To require a valid API key for all tunnel connections, set this in `config-instance.toml`:
+
+```toml
+[authentication]
+requireApiKey = true
+```
+
 
 All custom subdomains need to be added to your hosts file if you are running `tunnelmole-service` locally. 
 ```
