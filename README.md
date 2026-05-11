@@ -15,6 +15,48 @@ For the coding style, we mostly follow [Functional Programming](https://en.wikip
 - NodeJS 16 or later
 - TypeScript 4.9.3 or later
 
+### Docker
+
+Pre-built images are published to the GitHub Container Registry on every commit to `main` and on every git tag.
+
+| Tag | Description |
+|-----|-------------|
+| `sha-<short-sha>` | Published on every commit to `main` (e.g. `sha-a1b2c3d`) |
+| `v<X.Y.Z>` | Stable release, published when a git tag such as `v1.2.3` is pushed |
+
+#### Quick start with Docker
+
+```bash
+# Pull the latest commit image
+docker pull ghcr.io/arthurfiorette/tunnelmole-service:sha-<short-sha>
+
+# Or pull a stable release
+docker pull ghcr.io/arthurfiorette/tunnelmole-service:v1.0.0
+```
+
+Copy the example config and edit it as needed:
+
+```bash
+cp config-instance.example.toml config-instance.toml
+# Edit config-instance.toml with your settings
+```
+
+Then run the service (the config file is mounted into the container):
+
+```bash
+bash scripts/docker-run.sh
+```
+
+#### Docker Compose
+
+A `docker-compose.yml` is provided that runs both the tunnelmole service and a MySQL database.
+
+```bash
+cp .env.example .env
+# Edit .env if needed, then:
+docker compose up
+```
+
 ### Getting started
 If you just want to use Tunnelmole without setting up your own server or building things from source, head over to the official website at [https://tunnelmole.com](https://tunnelmole.com) and follow the instructions shown to get up and running in minutes!. Like Docker (another open source project) you don't need to build things from source just to run and use Tunnelmole.
 
